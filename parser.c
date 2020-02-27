@@ -90,6 +90,10 @@ void parse_file ( char * filename,
       }
       // for (i = 0; i < 6; i++) {
       // }
+
+      add_edge(edges,
+                atof(args_ary[0]), atof(args_ary[1]), atof(args_ary[2]),
+                atof(args_ary[3]), atof(args_ary[4]), atof(args_ary[5]));
     }
   }
 }
