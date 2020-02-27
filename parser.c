@@ -69,12 +69,12 @@ void parse_file ( char * filename,
 
   while ( fgets(line, 255, f) != NULL ) {
     line[strlen(line)-1]='\0';
-    printf(":%s:\n",line);
+    // printf(":%s:\n",line);
 
     if (!strcmp(line, "line")) {
       fgets(args, 255, f);
       args[strlen(args)-1]='\0';
-      printf("->%s\n", args);
+      // printf("->%s\n", args);
 
       char* arg_end = args;
       char* args_ary[6];
@@ -94,6 +94,8 @@ void parse_file ( char * filename,
       add_edge(edges,
                 atof(args_ary[0]), atof(args_ary[1]), atof(args_ary[2]),
                 atof(args_ary[3]), atof(args_ary[4]), atof(args_ary[5]));
+    } elif (!strcmp(line, "ident")) {
+      ident(transform);
     }
   }
 }
