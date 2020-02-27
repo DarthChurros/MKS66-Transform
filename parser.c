@@ -52,23 +52,44 @@ humans use degrees, so the file will contain degrees for rotations,
 be sure to conver those degrees to radians (M_PI is the constant
 for PI)
 ====================*/
-void parse_file ( char * filename, 
-                  struct matrix * transform, 
+void parse_file ( char * filename,
+                  struct matrix * transform,
                   struct matrix * edges,
                   screen s) {
 
   FILE *f;
   char line[256];
+  char args[256];
   clear_screen(s);
 
-  if ( strcmp(filename, "stdin") == 0 ) 
+  if (!strcmp(filename, "stdin"))
     f = stdin;
   else
     f = fopen(filename, "r");
-  
+
   while ( fgets(line, 255, f) != NULL ) {
     line[strlen(line)-1]='\0';
     printf(":%s:\n",line);
+
+    if (!strcmp(line, "line")) {
+      fgets(args, 255, f);
+      args[strlen(args)-1]='\0';
+      printf("->%s\n", args);
+
+      char* arg_end = args;
+      char* args_ary[6];
+
+      int i;
+      for (i = 0; i < 6; i++) {
+        args_ary[i] = strsep(&arg_end, " ");
+
+        if (arg_end && *arg_end == '\0')
+          i--;
+        // else
+        //   printf("%s\n", args_ary[i]);
+      }
+      // for (i = 0; i < 6; i++) {
+      // }
+    }
   }
 }
-  
