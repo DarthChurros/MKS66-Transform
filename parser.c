@@ -137,6 +137,16 @@ void parse_file ( char * filename,
       draw_lines(edges, s, (color){0,255,0});
 
       display(s);
+    } else if (!strcmp(line, "save")) {
+
+      char filename[256];
+      fscanf(f, "%s\n", filename);
+
+      clear_screen(s);
+
+      draw_lines(edges, s, (color){0,255,0});
+
+      save_extension(s, filename);
     }
   }
 }
