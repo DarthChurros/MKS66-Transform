@@ -65,7 +65,7 @@ void parse_file ( char * filename,
   else
     f = fopen(filename, "r");
 
-  while ( fgets(line, 255, f) != NULL ) {
+  while (fgets(line, 255, f)) {
     line[strlen(line)-1]='\0';
     printf(":%s:\n",line);
 
@@ -128,6 +128,15 @@ void parse_file ( char * filename,
 
       matrix_mult(rotate, transform);
 
+    } else if (!strcmp(line, "apply")) {
+      matrix_mult(transform, edges);
+    } else if (!strcmp(line, "display")) {
+
+      clear_screen(s);
+
+      draw_lines(edges, s, (color){0,255,0});
+
+      display(s);
     }
   }
 }
