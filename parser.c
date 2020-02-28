@@ -147,6 +147,12 @@ void parse_file ( char * filename,
       draw_lines(edges, s, (color){0,255,0});
 
       save_extension(s, filename);
+    } else if (!strcmp(line, "quit")) {
+      break;
+    } else {
+      printf("Invalid command!\n");
+      if (f != stdin)
+        break;
     }
   }
 }
