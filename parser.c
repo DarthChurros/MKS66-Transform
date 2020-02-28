@@ -107,8 +107,9 @@ void parse_file ( char * filename,
     } else if (!strcmp(line, "rotate")) {
       fgets(line, 255, f);
 
-      double axis, theta;
-      sscanf(line, "%c %lf\n", axis, theta);
+      char axis;
+      double theta;
+      sscanf(line, "%c %lf\n", &axis, &theta);
 
       struct matrix* rotate;
 
@@ -123,6 +124,7 @@ void parse_file ( char * filename,
           rotate = make_rotZ(theta * M_PI / 180);
           break;
         default:
+          rotate = make_rotX(0);
           printf("Input valid axis!\n");
       }
 
