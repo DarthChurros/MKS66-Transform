@@ -87,13 +87,23 @@ void parse_file ( char * filename,
     } else if (!strcmp(line, "scale")) {
       fgets(line, 255, f);
 
-      double x, y, z;
-      sscanf(line, "%lf %lf %lf\n", &x, &y, &z);
+      double sx, sy, sz;
+      sscanf(line, "%lf %lf %lf\n", &sx, &sy, &sz);
 
-      struct matrix* scale = make_scale(x, y, z);
+      struct matrix* scale = make_scale(sx, sy, sz);
 
       matrix_mult(scale, transform);
 
+    } else if (!strcmp(line, "translate")) {
+      fgets(line, 255, f);
+
+      double tx, ty, tz;
+      sscanf(line, "%lf %lf %lf\n", &tx, &ty, &tz);
+
+      struct matrix* translate = make_translate(tx, ty, tz);
+
+      matrix_mult(translate, transform);
+      
     }
   }
 }
