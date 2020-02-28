@@ -103,7 +103,31 @@ void parse_file ( char * filename,
       struct matrix* translate = make_translate(tx, ty, tz);
 
       matrix_mult(translate, transform);
-      
+
+    } else if (!strcmp(line, "rotate")) {
+      fgets(line, 255, f);
+
+      double axis, theta;
+      sscanf(line, "%c %lf\n", axis, theta);
+
+      struct matrix* rotate;
+
+      switch (axis) {
+        case 'x':
+          rotate = make_rotX(theta * M_PI / 180);
+          break;
+        case 'y':
+          rotate = make_rotY(theta * M_PI / 180);
+          break;
+        case 'z':
+          rotate = make_rotZ(theta * M_PI / 180);
+          break;
+        default:
+          printf("Input valid axis!\n");
+      }
+
+      matrix_mult(rotate, transform);
+
     }
   }
 }
