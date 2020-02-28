@@ -94,7 +94,7 @@ void parse_file ( char * filename,
 
       matrix_mult(scale, transform);
 
-    } else if (!strcmp(line, "translate")) {
+    } else if (!strcmp(line, "move")) {
       fgets(line, 255, f);
 
       double tx, ty, tz;
