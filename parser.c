@@ -9,7 +9,6 @@
 #include "matrix.h"
 #include "parser.h"
 
-
 /*======== void parse_file () ==========
 Inputs:   char * filename
           struct matrix * transform,
@@ -59,7 +58,6 @@ void parse_file ( char * filename,
 
   FILE *f;
   char line[256];
-  char args[256];
   clear_screen(s);
 
   if (!strcmp(filename, "stdin"))
@@ -69,33 +67,33 @@ void parse_file ( char * filename,
 
   while ( fgets(line, 255, f) != NULL ) {
     line[strlen(line)-1]='\0';
-    // printf(":%s:\n",line);
+    printf(":%s:\n",line);
 
     if (!strcmp(line, "line")) {
-      fgets(args, 255, f);
-      args[strlen(args)-1]='\0';
-      // printf("->%s\n", args);
+      fgets(line, 255, f);
 
-      char* arg_end = args;
-      char* args_ary[6];
+      double x0, y0, z0, x1, y1, z1;
 
-      int i;
-      for (i = 0; i < 6; i++) {
-        args_ary[i] = strsep(&arg_end, " ");
-
-        if (arg_end && *arg_end == '\0')
-          i--;
-        // else
-        //   printf("%s\n", args_ary[i]);
-      }
-      // for (i = 0; i < 6; i++) {
-      // }
+      sscanf(line, "%lf %lf %lf %lf %lf %lf\n", &x0, &y0, &z0, &x1, &y1, &z1);
 
       add_edge(edges,
-                atof(args_ary[0]), atof(args_ary[1]), atof(args_ary[2]),
-                atof(args_ary[3]), atof(args_ary[4]), atof(args_ary[5]));
-    } elif (!strcmp(line, "ident")) {
+                x0, y0, z0,
+                x1, y1, z1);
+
+    } else if (!strcmp(line, "ident")) {
+
       ident(transform);
+
+    } else if (!strcmp(line, "scale")) {
+      fgets(line, 255, f);
+
+      double x, y, z;
+      sscanf(line, "%lf %lf %lf\n", &x, &y, &z);
+
+      struct matrix* scale = make_scale(x, y, z);
+
+      matrix_mult(scale, transform);
+
     }
   }
 }
