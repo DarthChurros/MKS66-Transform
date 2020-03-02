@@ -78,7 +78,6 @@ x -45
 move
 350 -100 0
 apply
-display
 save
 image.ppm
 save
