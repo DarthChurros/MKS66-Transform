@@ -11,6 +11,9 @@ CC= gcc
 run: all
 	$(VG) ./main script $(ARGS)
 
+demo: all
+	$(VG) ./main my_script $(ARGS)
+
 all: $(OBJECTS)
 	$(CC) $(DATA) -o main $(OBJECTS) $(LDFLAGS)
 
